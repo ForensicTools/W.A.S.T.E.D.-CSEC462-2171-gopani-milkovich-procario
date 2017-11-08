@@ -14,3 +14,5 @@ This will be a web traffic monitor to verify safety of sites visited by users on
 This is particularly important in discovery attempts at attacks such as phishing, where threat actors attempt to get users to visit malicious sites or download malicious files from their servers. The goal of this tool is to allow network traffic monitors to have a real time display of where their traffic is going and quick, efficient alerts in the event a threat is introduced to their environment.
 
 A secondary use for this tool is ensuring proper use of company resources and time. This is not intended as a “big brother” tool for enterprises, but more dedicated to making sure employees do not misuse servers or other company assets for personal gain.
+
+Updated: 11/6/17
