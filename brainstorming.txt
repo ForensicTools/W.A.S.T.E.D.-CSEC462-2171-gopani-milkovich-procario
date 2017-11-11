@@ -32,3 +32,5 @@ Frequency of web pages visited
 Professor in-class suggestions: look at data sheet, columns, heading, sort on a specific column, see how groupings work; tied together, or scattered (2 or 3 groups, completely scattered?) Sort on A, then sort on B, see how data changes, unsort on B, then do C, etc.
 
 
+Looks like Priya is working on the front end
+Chris and Mike will research what to do on the back end
