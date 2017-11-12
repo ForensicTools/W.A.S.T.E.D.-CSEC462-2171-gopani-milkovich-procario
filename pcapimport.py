@@ -75,4 +75,5 @@ if __name__ == '__main__':
     badSites = knownBad(level)
     os.system('tshark -r web.pcap -T fields -e ip.src -e dns.qry.name -Y "dns.flags.response eq 0" | grep .com > web.txt')
     results = parsingFile(badSites)
-    print(results)
+    with open('result.json', 'w') as fp:
+            json.dump(results, fp)
