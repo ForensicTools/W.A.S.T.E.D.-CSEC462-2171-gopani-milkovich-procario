@@ -12,7 +12,9 @@ _Michael Milkovich, Priya Gopani, Chris Procario_
 PREREQUISITES:
 
 Linux based operating system
+
 Tshark
+
 Python 2.7
 
 ------
@@ -26,4 +28,5 @@ A secondary use for this tool is ensuring proper use of company resources and ti
 -----
 
 Source of bad sites: https://isc.sans.edu/suspicious_domains.html
+
 Updated: 11/12/17
