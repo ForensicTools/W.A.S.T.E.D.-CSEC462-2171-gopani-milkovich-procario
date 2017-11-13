@@ -2,7 +2,6 @@ import os
 import socket
 import urllib.request
 import json
-import subprocess
 
 # dictionary to hold all results
 records = {}
