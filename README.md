@@ -15,7 +15,7 @@ Linux based operating system
 
 Tshark
 
-Python 2.7
+Python 3 (!)
 
 ------
 

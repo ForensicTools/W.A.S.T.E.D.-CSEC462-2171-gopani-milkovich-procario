@@ -1,6 +1,6 @@
 import os
 import socket
-import urllib
+import urllib.request
 from contextlib import closing
 import json
 
@@ -21,16 +21,19 @@ def parsingFile(badSites):
             line = line.split()
             hostName = line[1]
             # get the IP using the host name
-            ip = getIP(hostName)
+            ip = getIP(hostName)[0]
             # url of the API to grab the location using IP
             url = 'http://freegeoip.net/json/'
             # query the API
-            with closing(urllib.urlopen(url+ip)) as response:
-                location = json.loads(response.read())
-                # get wanted information from json
-                lat = location["latitude"]
-                lon = location["longitude"]
-
+            try:
+                with urllib.request.urlopen(url+ip) as response:
+                    location = json.loads(response.read().decode())
+                    # get wanted information from json
+                    lat = location["latitude"]
+                    lon = location["longitude"]
+            except:
+                lat = "unknown"
+                lon = "unknown"
             if hostName in records.keys():
                 # if host exists, increment counter
                 records[hostName]["NumVisit"] += 1
@@ -52,8 +55,12 @@ def getIP(hostName):
     :param hostName: hostname of site visited
     :return: IP of target
     """
-    ip = socket.gethostbyname(hostName.strip())
-    return ip
+    try:
+        ip = socket.gethostbyname_ex(hostName.strip())
+        return ip[2]
+    except:
+        print("Failed: " + hostName)
+        return hostName
 
 def knownBad(level):
     if level == "high":
@@ -71,7 +78,7 @@ if __name__ == '__main__':
     # Create an inteactive way to choose the PCAP and level of comparison (bad list)
     # Low sensitivity has more false positives
     # High has less flase positives
-    level = raw_input("Choose level (low,medium,high): ")
+    level = input("Choose level (low,medium,high): ")
     badSites = knownBad(level)
     os.system('tshark -r web.pcap -T fields -e ip.src -e dns.qry.name -Y "dns.flags.response eq 0" | grep .com > web.txt')
     results = parsingFile(badSites)
