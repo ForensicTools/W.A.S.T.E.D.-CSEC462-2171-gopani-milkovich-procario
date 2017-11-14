@@ -46,11 +46,13 @@ def parsing(badSites, response):
             records[hostName]["Latitude"] = lat
             records[hostName]["Longitude"] = lon
             records[hostName]["IP"] = []
-            records[hostName]["KnownBad"] = 0
             records[hostName]["NumPackets"] = 0
             records[hostName]["TotalSize"] = 0
+            records[hostName]["color"] = "yellow"
+            records[hostName]["selectedColor"] = "green"
             if hostName in badSites:
-                records[hostName]["KnownBad"]  = 1
+                records[hostName]["color"] = "red"
+                records[hostName]["selectedColor"] = "red"
     return records
 
 def getServers(records):
@@ -97,8 +99,6 @@ def packetInfo(records):
         # some packets did not have source, dest, and size. Ignore these.
         if len(line) != 3:
             continue
-        if line[0] == "151.101.20.193":
-            print("here")
         if line[0] in scope:
             records[mapping[line[0]]]["NumPackets"] += 1
             records[mapping[line[0]]]["TotalSize"] += int(line[2])
