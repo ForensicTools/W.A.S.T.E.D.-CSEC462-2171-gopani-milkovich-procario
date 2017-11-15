@@ -238,7 +238,7 @@ if __name__ == '__main__':
     level = input("Choose sensitivity (low,medium,high): ")
     capfile = input("Input .pcap file to analyze: ")
     #if the file isnt a pcap, exit
-    if '.pcap' or '.pcapng' not in capfile:
+    if ('.pcap' or '.pcapng') not in capfile:
         print("Not a valid .pcap file, please input a proper file")
         sys.exit(1)
     #if the mapper.html webpage exists, delete old version
