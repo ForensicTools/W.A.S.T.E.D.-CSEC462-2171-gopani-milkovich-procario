@@ -1,0 +1,36 @@
+Ideas on how to get the traffic / filtered web traffic
+
+Idea 1: Create a .py or bash script that run tcpdump -i <interface> .. i forget the rest
+
+Idea 2: use pyshark 
+https://pypi.python.org/pypi/pyshark/0.1
+
+Steps:
+Capture filtered HTTP traffic
+Probably save to pcap file
+Parse that pcap file 
+dest/src IP
+Maybe time
+Idk , Mike fix this
+
+Check if there’s a dictionary/list online/webpage of malicious webpages, check based off findings in pcap against those?
+
+What do we want to virtualize/ display  ?
+Maybe:
+The images of sites that are visited
+The alert system of a bad site
+Destination of destination IPs on geographic map
+Frequency of web pages visited 
+
+
+-pcap user-inputted
+-size webpages based off hits, increase bubble depending on how big the count is
+-COLORS!!!!!
+-Bubble will have a number 
+
+
+Professor in-class suggestions: look at data sheet, columns, heading, sort on a specific column, see how groupings work; tied together, or scattered (2 or 3 groups, completely scattered?) Sort on A, then sort on B, see how data changes, unsort on B, then do C, etc.
+
+
+Looks like Priya is working on the front end
+Chris and Mike will research what to do on the back end
