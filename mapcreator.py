@@ -7,7 +7,7 @@ import urllib.request
 from collections import defaultdict
 
 # dictionary to hold all results
-records = defaultdict(lambda: None)
+records = {}
 
 ###
 #   FUNCTION: parsing
@@ -24,13 +24,14 @@ records = defaultdict(lambda: None)
 ###
 def parsing(badSites, response):
     for url in response:
+        print(url)
         hostName = url.strip()
         # get the IP using the host name - used for location
         # ip = getIP(hostName)[0]
         # list of all associated ips
         # url of the API to grab the location using IP
         # query the API
-        if records[hostName] is not None :
+        if url in records.keys():
             pass
         else:
             records[hostName] = {}
@@ -47,9 +48,13 @@ def parsing(badSites, response):
             if badSites[hostName] is not None:
                 records[hostName]["color"] = "red"
                 records[hostName]["selectedColor"] = "red"
+    print("Iinitial Dictionry Created")
     locationCheck = 'http://freegeoip.net/json/'
     getServers(records)
-    for host in records.keys():
+    print("IPs Collected")
+    hosts = records.keys()
+    remove = []
+    for host in hosts:
         try:
             ip = records[host]["IP"][0]
             with urllib.request.urlopen(locationCheck+ip) as res:
@@ -60,11 +65,11 @@ def parsing(badSites, response):
                 records[host]["Latitude"] = lat
                 records[host]["Longitude"] = lon
         except:
-            # if not, create entry and set visits to 1
-            # if location is unknown
+            remove.append(host)
+    for entry in remove:
             print("Host no longer online:")
-            print(records[host])
-            del records[host]
+            print(records[entry])
+            del records[entry]
     return records
 
 ###
