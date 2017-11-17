@@ -4,9 +4,10 @@ import json
 import time
 import socket
 import urllib.request
+from collections import defaultdict
 
 # dictionary to hold all results
-records = {}
+records = defaultdict(lambda: None)
 
 ###
 #   FUNCTION: parsing
@@ -22,44 +23,48 @@ records = {}
 #             hosts visited, the information, and number of page visits
 ###
 def parsing(badSites, response):
-    long = []
-    lati = []
     for url in response:
         hostName = url.strip()
         # get the IP using the host name - used for location
-        ip = getIP(hostName)[0]
+        # ip = getIP(hostName)[0]
         # list of all associated ips
         # url of the API to grab the location using IP
-        locationCheck = 'http://freegeoip.net/json/'
         # query the API
-        try:
-            with urllib.request.urlopen(locationCheck+ip) as res:
-                location = json.loads(res.read().decode())
-                # get wanted information from json
-                lat = location["latitude"]
-                lon = location["longitude"]
-        except:
-            # if location is unknown
-            continue
-        if hostName in records.keys():
+        if records[hostName] is not None :
             pass
         else:
-            # if not, create entry and set visits to 1
             records[hostName] = {}
             records[hostName]["svgPath"] = "targetSVG"
             records[hostName]["zoomLevel"] = "5"
             records[hostName]["scale"] = ".5"
             records[hostName]["title"] = hostName
-            records[hostName]["Latitude"] = lat
-            records[hostName]["Longitude"] = lon
             records[hostName]["IP"] = []
             records[hostName]["NumPackets"] = 0
             records[hostName]["TotalSize"] = 0
             records[hostName]["color"] = "yellow"
             records[hostName]["selectedColor"] = "green"
-            if hostName in badSites:
+            getServers(records)
+            if badSites[hostName] is not None:
                 records[hostName]["color"] = "red"
                 records[hostName]["selectedColor"] = "red"
+    locationCheck = 'http://freegeoip.net/json/'
+    getServers(records)
+    for host in records.keys():
+        try:
+            ip = records[host]["IP"][0]
+            with urllib.request.urlopen(locationCheck+ip) as res:
+                # get wanted information from json
+                location = json.loads(res.read().decode())
+                lat = location["latitude"]
+                lon = location["longitude"]
+                records[host]["Latitude"] = lat
+                records[host]["Longitude"] = lon
+        except:
+            # if not, create entry and set visits to 1
+            # if location is unknown
+            print("Host no longer online:")
+            print(records[host])
+            del records[host]
     return records
 
 ###
@@ -87,7 +92,6 @@ def getServers(records):
             records[hostName]["IP"] = ips
         except:
             continue
-    return records
 
 ###
 #   FUNCTION: packetInfo
@@ -155,23 +159,30 @@ def getIP(hostName):
 #             which contain known malicious webpages
 ###
 def knownBad(level):
+    badSites = defaultdict(lambda: None)
     if level == "high":
         if os.path.isfile("high.txt"):
-            badSites = open("high.txt").readlines()
+            with open("high.txt") as file:
+                for line in file:
+                    badSites[line.strip()] = 1
         else:
             print("high.txt does not exist, please move into proper directory")
             sys.exit(1)
 
     elif level == "medium":
         if os.path.isfile("medium.txt"):
-            badSites = open("medium.txt").readlines()
+            with open("medium.txt") as file:
+                for line in file:
+                    badSites[line.strip()] = 1
         else:
             print("medium.txt does not exist, please move into proper directory")
             sys.exit(1)
 
     elif level == "low":
         if os.path.isfile("low.txt"):
-            badSites = open("low.txt").readlines()
+            with open("low.txt") as file:
+                for line in file:
+                    badSites[line.strip()] = 1
         else:
             print("low.txt does not exist, please move into proper directory")
             sys.exit(1)
@@ -247,10 +258,11 @@ if __name__ == '__main__':
     #if the pcap exists in the directory, continue 
     if os.path.isfile(capfile):
         badSites = knownBad(level)
-        response = os.popen("tshark -r" + capfile + " -T fields -e dns.qry.name -Y \"dns.flags.response eq 0\" | grep .com").read()
+        response = os.popen("tshark -r" + capfile + " -T fields -e dns.qry.name -Y \"dns.flags.response eq 0\" | grep .com$").read()
         response = response.splitlines()
+        # print(len(response))
         records = parsing(badSites,response)
-        records = getServers(records)
+        # records = getServers(records)
         info = packetInfo(records)
         #create the map
         makeMap(info)
