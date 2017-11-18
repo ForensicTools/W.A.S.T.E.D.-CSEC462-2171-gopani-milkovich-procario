@@ -5,7 +5,9 @@
 ### Web Alert Security Tap and Event Detailer
 ##### CSEC462-2171
 
-_Michael Milkovich, Priya Gopani, Chris Procario_
+_Michael Milkovich: mjm1276@g.rit.edu
+Priya Gopani: pxg1622@g.rit.edu
+Chris Procario: cxp2714@g.rit.edu_
 
 -----
 
