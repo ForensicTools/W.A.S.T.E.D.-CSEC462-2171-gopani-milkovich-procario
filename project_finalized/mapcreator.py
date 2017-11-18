@@ -23,8 +23,8 @@ records = {}
 #             hosts visited, the information, and number of page visits
 ###
 def parsing(badSites, response):
+    print("Gathering URLs")
     for url in response:
-        print(url)
         hostName = url.strip()
         # get the IP using the host name - used for location
         # ip = getIP(hostName)[0]
