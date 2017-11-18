@@ -21,6 +21,16 @@ Python 3 (!)
 
 ------
 
+To Launch This Tool:
+
+Download the repository and unzip it in place of your choice
+
+On command line navigate into “project_finalized”
+
+Use the command “python3 mapcreator.py”
+
+------
+
 This will be a web traffic monitor to verify safety of sites visited by users on an enterprise network. The tool’s main purpose is to verify the safety of the sites being visited by the users, as well as comparing the visited sites to lists of known-bad to trigger security alerts in the event a known-bad site is visited.
 
 This is particularly important in discovery attempts at attacks such as phishing, where threat actors attempt to get users to visit malicious sites or download malicious files from their servers. The goal of this tool is to allow network traffic monitors to have a real time display of where their traffic is going and quick, efficient alerts in the event a threat is introduced to their environment.
