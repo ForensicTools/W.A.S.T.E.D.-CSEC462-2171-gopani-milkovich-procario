@@ -2,7 +2,7 @@
 
 Download the repository and unzip it in place of your choice
 
-On the command line navigate into “project_finalized”
+On the command line navigate into the “WASTED” directory
 
 Use the command “python3 mapcreator.py”
 
@@ -10,7 +10,7 @@ Upon successful script execution, you will be prompted for "high", "medium", or 
 high yields less false positives
 
 You will be prompted for a wireshark .pcap/.pcapng file. 
-If it is not in the same directory as "project_finalized", you must provide the full path of the file 
+If it is not in the same directory as "WASTED", you must provide the full path of the file 
 (i.e. /home/Desktop/wireshark_capture.pcap).
 
 Once the script generates the "mapper.html" file, 
