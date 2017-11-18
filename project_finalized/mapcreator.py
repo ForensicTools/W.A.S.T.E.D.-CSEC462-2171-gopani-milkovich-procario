@@ -22,7 +22,7 @@ records = {}
 #             the hostname already exists. Returns a dictionary of all the
 #             hosts visited, the information, and number of page visits
 ###
-def parsing(badSites, response):
+def parsing(badSites, response, capfile):
     print("Gathering URLs")
     for url in response:
         hostName = url.strip()
@@ -44,13 +44,13 @@ def parsing(badSites, response):
             records[hostName]["TotalSize"] = 0
             records[hostName]["color"] = "yellow"
             records[hostName]["selectedColor"] = "green"
-            getServers(records)
+            getServers(records, capfile)
             if badSites[hostName] is not None:
                 records[hostName]["color"] = "red"
                 records[hostName]["selectedColor"] = "red"
     print("Iinitial Dictionry Created")
     locationCheck = 'http://freegeoip.net/json/'
-    getServers(records)
+    getServers(records, capfile)
     print("IPs Collected")
     hosts = records.keys()
     remove = []
@@ -80,8 +80,8 @@ def parsing(badSites, response):
 #   ABOUT:    getServers function
 #             get the IPs associated with each DNS entry
 ### 
-def getServers(records):
-    cmd = 'tshark -r web1.pcap -T fields -e dns.qry.name -e dns.a -Y "dns.flags == 0x8180"'
+def getServers(records, capfile):
+    cmd = "tshark -r" + capfile + " -T fields -e dns.qry.name -e dns.a -Y \"dns.flags == 0x8180\""
     dnsRes = os.popen(cmd).read()
     dnsRes = dnsRes.splitlines()
     for line in dnsRes:
@@ -266,10 +266,9 @@ if __name__ == '__main__':
         badSites = knownBad(level)
         response = os.popen("tshark -r" + capfile + " -T fields -e dns.qry.name -Y \"dns.flags.response eq 0\" | grep .com$").read()
         response = response.splitlines()
-        # print(len(response))
-        records = parsing(badSites,response)
-        # records = getServers(records)
+        records = parsing(badSites,response,capfile)
         info = packetInfo(records)
+
         #create the map
         makeMap(info)
     #if the pcap file doesn't exist, exit
