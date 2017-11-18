@@ -17,5 +17,6 @@ Once the script generates the "mapper.html" file,
 it will automatically be opened in the default FireFox browser on the Linux machine.
 
 The "Resources" directory contains the high.txt, medium.txt, and low.txt files, which contain
-lists of various known malicious hostnames. It also includes feature1.png, feature2.png and 
-feature3.png which display on the bottom of the webpage.html template.
+lists of various known malicious hostnames. Webpage.html is a webpage template that is used for the
+program, mapcreator.py, to create mapper.html. Resources also includes feature1.png, feature2.png and 
+feature3.png which displays on the bottom of the webpage.html template.
