@@ -13,7 +13,7 @@ Chris Procario: cxp2714@g.rit.edu_
 
 PREREQUISITES:
 
-Linux based operating system
+Linux based operating system with FireFox
 
 Tshark
 
@@ -28,6 +28,12 @@ Download the repository and unzip it in place of your choice
 On command line navigate into “project_finalized”
 
 Use the command “python3 mapcreator.py”
+
+You will be prompted for "high", "medium", or "low" sensitivity; high yields less false positives
+
+You will be prompted for a wireshark .pcap/.pcapng file. If it is not in the same directory as "project_finalized", you must provide the full path of the file (i.e. /home/Desktop/wireshark_capture.pcap).
+
+Once the script generates the "mapper.html" file, it will automatically be opened in the default FireFox browser on the Linux machine.
 
 ------
 
