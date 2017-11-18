@@ -24,7 +24,7 @@ records = {}
 ###
 def parsing(badSites, response):
     for url in response:
-#        print(url)
+        print(url)
         hostName = url.strip()
         # get the IP using the host name - used for location
         # ip = getIP(hostName)[0]
@@ -230,7 +230,7 @@ def makeMap(info):
         selectedcolor = value['selectedColor']
         count = value['NumPackets']
 
-        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"%s, Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
+        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s,\n Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
 
         webpage_info.append(string)
 
