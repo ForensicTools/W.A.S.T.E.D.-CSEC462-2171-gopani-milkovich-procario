@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="ammap/ammap.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="ammap/ammap.css" type="text/css" media="all" />
+	<script src="ammap/maps/js/worldLow.js" type="text/javascript"></script>
+	
+	<!-- EXTRA PRETTY UP ! -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+	<!--- Extra Format script !-->
+	<style>
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background-color: navy ; /* Green #669999 */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+  </style>
+	
+	<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}																		
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<!-- Chart code -->
+<script>
+/**
+ * Define SVG path for target icon
+ */
+var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
+/**
+ * Create the map
+ */
+var map = AmCharts.makeChart( "chartdiv", {
+  "type": "map",
+  "projection": "equirectangular",
+  "theme": "dark",
+  "imagesSettings": {
+    "rollOverColor": "orange",
+    "rollOverScale": 3,
+    "selectedScale": 3,
+    "selectedColor": "purple",
+    "color": "yellow"
+  },
+  "areasSettings": {
+    "unlistedAreasColor": "#15A892",
+    "outlineThickness": 0.1
+  },
+  "dataProvider": {
+    "map": "worldLow",
+  "export": {
+    "enabled": true
+  }
+} );
+</script>
+</head>
+<body>
+	
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Web Alert Security Traffic Event Detailer</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="mapper.html">Top IP Map</a></li>
+        <li><a href="https://isc.sans.edu/suspicious_domains.html">Top Bad Sites</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h3 class="margin">Webpage Frequency Evaluation and Safety Map</h3>
+ <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
+ <div class ="img-responsive img-circle margin">
+<div id="chartdiv"></div> </div>
+  <h3>The dots indicate a site, the dot will display the site name and number of times the site was visited in the capture. If red, this site is considered to be
+  a "bad" site. </h3>
+</div>
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">Results Based On Your PCAP File</h3>
+  <p>This map is based on the traffic of .pcap file that you entered when prompted. Re-run the script and enter another .pcap file for the map to change. </p>
+	
+</div>
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">    
+  <h3 class="margin">What is this ?</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p>Feature 1: See and zoom in on the location of the website on the geographic world map.</p>
+      <img src="feature1.png" class="img-responsive margin" style="width:500px" alt="Image">
+    </div>
+    <div class="col-sm-4"> 
+      <p>Feature 2: Scroll over to see the name of the website name and a count of the number packets from the capture for that domain.</p>
+      <img src="feature2.png" class="img-responsive margin" style="width:500px" length alt="Image">
+    </div>
+    <div class="col-sm-4"> 
+      <p>Feature 3: COLORS ! If the color is red, that indicates it is a possible bad domain, otherwise it is yellow.</p>
+      <img src="feature3.png" class="img-responsive margin" style="width:500px" alt="Image">
+    </div>
+  </div>
+</div>
+</body>
+</html>
