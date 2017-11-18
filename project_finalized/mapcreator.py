@@ -230,7 +230,7 @@ def makeMap(info):
         selectedcolor = value['selectedColor']
         count = value['NumPackets']
 
-        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s,\n Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
+        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s, Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
 
         webpage_info.append(string)
 
