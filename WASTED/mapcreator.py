@@ -22,9 +22,9 @@ records = {}
 #             the hostname already exists. Returns a dictionary of all the
 #             hosts visited, the information, and number of page visits
 ###
-def parsing(badSites, response):
+def parsing(badSites, response, capfile):
+    print("Gathering URLs")
     for url in response:
-        print(url)
         hostName = url.strip()
         # get the IP using the host name - used for location
         # ip = getIP(hostName)[0]
@@ -44,13 +44,13 @@ def parsing(badSites, response):
             records[hostName]["TotalSize"] = 0
             records[hostName]["color"] = "yellow"
             records[hostName]["selectedColor"] = "green"
-            getServers(records)
+            getServers(records, capfile)
             if badSites[hostName] is not None:
                 records[hostName]["color"] = "red"
                 records[hostName]["selectedColor"] = "red"
     print("Iinitial Dictionry Created")
     locationCheck = 'http://freegeoip.net/json/'
-    getServers(records)
+    getServers(records, capfile)
     print("IPs Collected")
     hosts = records.keys()
     remove = []
@@ -80,8 +80,8 @@ def parsing(badSites, response):
 #   ABOUT:    getServers function
 #             get the IPs associated with each DNS entry
 ### 
-def getServers(records):
-    cmd = 'tshark -r web1.pcap -T fields -e dns.qry.name -e dns.a -Y "dns.flags == 0x8180"'
+def getServers(records, capfile):
+    cmd = "tshark -r" + capfile + " -T fields -e dns.qry.name -e dns.a -Y \"dns.flags == 0x8180\""
     dnsRes = os.popen(cmd).read()
     dnsRes = dnsRes.splitlines()
     for line in dnsRes:
@@ -166,30 +166,30 @@ def getIP(hostName):
 def knownBad(level):
     badSites = defaultdict(lambda: None)
     if level == "high":
-        if os.path.isfile("high.txt"):
-            with open("high.txt") as file:
+        if os.path.isfile("./Resources/high.txt"):
+            with open("./Resources/high.txt") as file:
                 for line in file:
                     badSites[line.strip()] = 1
         else:
-            print("high.txt does not exist, please move into proper directory")
+            print("high.txt does not exist, please move it into Resources directory")
             sys.exit(1)
 
     elif level == "medium":
-        if os.path.isfile("medium.txt"):
-            with open("medium.txt") as file:
+        if os.path.isfile("./Resources/medium.txt"):
+            with open("./Resources/medium.txt") as file:
                 for line in file:
                     badSites[line.strip()] = 1
         else:
-            print("medium.txt does not exist, please move into proper directory")
+            print("medium.txt does not exist, please move it into Resources directory")
             sys.exit(1)
 
     elif level == "low":
-        if os.path.isfile("low.txt"):
-            with open("low.txt") as file:
+        if os.path.isfile("./Resources/low.txt"):
+            with open("./Resources/low.txt") as file:
                 for line in file:
                     badSites[line.strip()] = 1
         else:
-            print("low.txt does not exist, please move into proper directory")
+            print("low.txt does not exist, please move it into Resources directory")
             sys.exit(1)
 
     else:
@@ -211,7 +211,7 @@ def knownBad(level):
 ###
 def makeMap(info):
 
-    file = open("webpage.html", "r")
+    file = open("./Resources/webpage.html", "r")
     contents = file.readlines()
     file.close()
 
@@ -228,8 +228,9 @@ def makeMap(info):
         longitude = value['Longitude']
         color = value['color']
         selectedcolor = value['selectedColor']
+        count = value['NumPackets']
 
-        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"%s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,latitude,longitude,color,selectedcolor)
+        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s, Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
 
         webpage_info.append(string)
 
@@ -265,10 +266,9 @@ if __name__ == '__main__':
         badSites = knownBad(level)
         response = os.popen("tshark -r" + capfile + " -T fields -e dns.qry.name -Y \"dns.flags.response eq 0\" | grep .com$").read()
         response = response.splitlines()
-        # print(len(response))
-        records = parsing(badSites,response)
-        # records = getServers(records)
+        records = parsing(badSites,response,capfile)
         info = packetInfo(records)
+
         #create the map
         makeMap(info)
     #if the pcap file doesn't exist, exit
