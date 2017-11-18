@@ -15,3 +15,7 @@ If it is not in the same directory as "project_finalized", you must provide the 
 
 Once the script generates the "mapper.html" file, 
 it will automatically be opened in the default FireFox browser on the Linux machine.
+
+The "Resources" directory contains the high.txt, medium.txt, and low.txt files, which contain
+lists of various known malicious hostnames. It also includes feature1.png, feature2.png and 
+feature3.png which display on the bottom of the webpage.html template.
