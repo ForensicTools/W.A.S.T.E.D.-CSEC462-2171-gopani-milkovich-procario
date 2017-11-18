@@ -7,7 +7,8 @@
 
 _Michael Milkovich: mjm1276@g.rit.edu, Priya Gopani: pxg1622@g.rit.edu, Chris Procario: cxp2714@g.rit.edu_
 
-Pleaase contact Chris Procario for updates, modification requests, or bug reports.
+Please contact Chris Procario for updates, modification requests, or bug reports.
+
 -----
 
 ### PREREQUISITES:
