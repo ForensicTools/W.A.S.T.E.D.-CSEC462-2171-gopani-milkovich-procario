@@ -49,6 +49,6 @@ A secondary use for this tool is ensuring proper use of company resources and ti
 
 Source of bad sites: https://isc.sans.edu/suspicious_domains.html
 
-Source of base map template: https://www.amcharts.com/
+Source of map template: https://www.amcharts.com/
 
 Updated: 11/18/17
