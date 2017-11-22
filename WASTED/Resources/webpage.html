@@ -101,8 +101,6 @@ var map = AmCharts.makeChart( "chartdiv", {
   }
 } );
 </script>
-
-
 </head>
 <body>
 	
@@ -120,58 +118,43 @@ var map = AmCharts.makeChart( "chartdiv", {
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="mapper.html">Top IP Map</a></li>
-        <li><a href="http://apac.trendmicro.com/apac/security-intelligence/current-threat-activity/malicious-top-ten/">Top Bad Sites</a></li>
-        <li><a href="#">Importance</a></li>
+        <li><a href="https://isc.sans.edu/suspicious_domains.html">Top Bad Sites</a></li>
       </ul>
     </div>
   </div>
 </nav>
-
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Top IP Website Map</h3>
+  <h3 class="margin">Webpage Frequency Evaluation and Safety Map</h3>
  <!-- <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350"> -->
  <div class ="img-responsive img-circle margin">
 <div id="chartdiv"></div> </div>
   <h3>The dots indicate a site, the dot will display the site name and number of times the site was visited in the capture. If red, this site is considered to be
   a "bad" site. </h3>
 </div>
-
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
-  <h3 class="margin">Upload a PCAP file</h3>
-  <p>Insert a PCAP file and then see the location and hits of the http traffic along with alerts of bad sites.</p>
+  <h3 class="margin">Results Based On Your PCAP File</h3>
+  <p>This map is based on the traffic of .pcap file that you entered when prompted. Re-run the script and enter another .pcap file for the map to change. </p>
 	
-
-	<center><input name="myFile" type="file"></center>
-
-
 </div>
-
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-3 text-center">    
   <h3 class="margin">What is this ?</h3><br>
   <div class="row">
     <div class="col-sm-4">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <p>Feature 1: See and zoom in on the location of the website on the geographic world map.</p>
+      <img src="./Resources/feature1.png" class="img-responsive margin" style="width:500px" alt="Image">
     </div>
     <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <p>Feature 2: Scroll over to see the name of the website name and a count of the number packets from the capture for that domain.</p>
+      <img src="./Resources/feature2.png" class="img-responsive margin" style="width:500px" length alt="Image">
     </div>
     <div class="col-sm-4"> 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <img src="birds3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <p>Feature 3: COLORS ! If the color is red, that indicates it is a possible bad domain, otherwise it is yellow.</p>
+      <img src="./Resources/feature3.png" class="img-responsive margin" style="width:500px" alt="Image">
     </div>
   </div>
 </div>
-
-
-
-
-
-
 </body>
 </html>
-

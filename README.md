@@ -5,19 +5,29 @@
 ### Web Alert Security Tap and Event Detailer
 ##### CSEC462-2171
 
-_Michael Milkovich, Priya Gopani, Chris Procario_
+_Michael Milkovich: mjm1276@g.rit.edu, Priya Gopani: pxg1622@g.rit.edu, Chris Procario: cxp2714@g.rit.edu_
+
+Please contact Chris Procario for updates, modification requests, or bug reports.
 
 -----
 
-PREREQUISITES:
+### PREREQUISITES:
 
-Linux based operating system
+Linux based operating system with FireFox
 
 Tshark
 
 Python 3 (!)
 
 ------
+
+### To use this tool
+
+Please follow the directions in "instructions.txt"
+
+------
+
+### Description
 
 This will be a web traffic monitor to verify safety of sites visited by users on an enterprise network. The tool’s main purpose is to verify the safety of the sites being visited by the users, as well as comparing the visited sites to lists of known-bad to trigger security alerts in the event a known-bad site is visited.
 
@@ -29,4 +39,6 @@ A secondary use for this tool is ensuring proper use of company resources and ti
 
 Source of bad sites: https://isc.sans.edu/suspicious_domains.html
 
-Updated: 11/12/17
+Source of map template: https://www.amcharts.com/
+
+Updated: 11/18/17
