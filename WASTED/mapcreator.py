@@ -22,7 +22,7 @@ records = {}
 #             the hostname already exists. Returns a dictionary of all the
 #             hosts visited, the information, and number of page visits
 ###
-def parsing(badSites, response, capfile):
+def parsing(badSites,response,capfile):
     print("Gathering URLs")
     for url in response:
         hostName = url.strip()
@@ -81,22 +81,22 @@ def parsing(badSites, response, capfile):
 #             get the IPs associated with each DNS entry
 ### 
 def getServers(records, capfile):
-    cmd = "tshark -r" + capfile + " -T fields -e dns.qry.name -e dns.a -Y \"dns.flags == 0x8180\""
+    cmd = "tshark -r " + capfile + " -T fields -e dns.qry.name -e dns.a -Y \"dns.flags == 0x8180\""
     dnsRes = os.popen(cmd).read()
     dnsRes = dnsRes.splitlines()
     for line in dnsRes:
         line = line.split()
-        strs = line[1]
-        strs = strs.split(",")
-        ips = []
-        for i in strs:
-            ips.append(i)
-        hostName = line[0].strip()
-
-        try:
-            records[hostName]["IP"] = ips
-        except:
-            continue
+        if(len(line) > 1):
+            strs = line[1]
+            strs = strs.split(",")
+            ips = []
+            for i in strs:
+                ips.append(i)
+                hostName = line[0].strip()
+                try:
+                    records[hostName]["IP"] = ips
+                except:
+                    continue
 
 ###
 #   FUNCTION: packetInfo
@@ -109,8 +109,8 @@ def getServers(records, capfile):
 #
 #TODO: change title field to proper formatting
 ###
-def packetInfo(records):
-    cmd = "tshark -r web1.pcap -T fields -e ip.src -e ip.dst -e frame.len"
+def packetInfo(records,capfile):
+    cmd = "tshark -r " + capfile + " -T fields -e ip.src -e ip.dst -e frame.len"
     traffic = os.popen(cmd).read()
     traffic = traffic.splitlines()
     # make scope a list of all IPs in records
@@ -267,7 +267,7 @@ if __name__ == '__main__':
         response = os.popen("tshark -r" + capfile + " -T fields -e dns.qry.name -Y \"dns.flags.response eq 0\" | grep .com$").read()
         response = response.splitlines()
         records = parsing(badSites,response,capfile)
-        info = packetInfo(records)
+        info = packetInfo(records,capfile)
 
         #create the map
         makeMap(info)
