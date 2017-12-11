@@ -229,8 +229,9 @@ def makeMap(info):
         color = value['color']
         selectedcolor = value['selectedColor']
         count = value['NumPackets']
+        size = value['TotalSize']
 
-        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s, Count: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,latitude,longitude,color,selectedcolor)
+        string = "{\n      \"svgPath\": %s,\n      \"zoomLevel\": %s,\n      \"scale\": %s,\n      \"title\": \"Title: %s, Count: %s, Size: %s\",\n      \"latitude\": %s,\n      \"longitude\": %s,\n      \"color\": \"%s\",\n      \"selectedColor\": \"%s\"\n    }, " % (svgpath,zoomlevel,scale,title,count,size,latitude,longitude,color,selectedcolor)
 
         webpage_info.append(string)
 
